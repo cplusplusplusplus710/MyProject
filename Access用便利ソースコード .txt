@@ -1,0 +1,60 @@
+Sub すべてのテーブル名､レポート名､クエリ名をファイルに取得()
+    Dim MyDB  As Database
+    Set MyDB = CurrentDb
+
+    Debug.Print "プログラム開始"
+    
+    Debug.Print "すべてのテーブル名を出力します"
+    Dim datFile As String
+    datFile = "Folder\テーブル名一覧.txt"
+    Open datFile For Output As #1
+    For Each myqer In MyDB.TableDefs
+        Print #1, myqer.Name
+    Next
+    Close #1
+
+    Debug.Print "すべてのクエリ名を出力します"
+    datFile = "Folder\クエリ名一覧.txt"
+    Open datFile For Output As #2
+    For Each myqer In MyDB.QueryDefs
+        Print #2, myqer.Name
+    Next
+    Close #2
+
+    Debug.Print "すべてのレポート名を出力します"
+    datFile = "Folder\レポート名一覧.txt"
+    Open datFile For Output As #3
+    For Each myqer In MyDB.Containers("Reports").Documents
+        Print #3, myqer.Name
+    Next
+    Close #3
+
+    Debug.Print "すべてのクエリのSQL文を出力します"
+    datFile = "Folder\クエリSQL文一覧.txt"
+    Dim qdef As QueryDef
+    Dim MySql As String
+    Open datFile For Output As #4
+    For Each myqer In MyDB.QueryDefs
+        Print #4, "--------------------------------------------------"
+        Print #4, myqer.Name
+        Print #4, "--------------------------------------------------"
+        Set qdef = MyDB.QueryDefs(myqer.Name)
+        MySql = qdef.SQL
+        If (MySql = "") Then
+        Else
+            Print #4, MySql
+        End If
+    Next
+    Close #4
+
+    Debug.Print "すべてのフォーム名を出力します"
+    datFile = "Folder\フォーム名一覧.txt"
+    Open datFile For Output As #5
+    For Each myqer In MyDB.Containers("Forms").Documents
+        Print #5, myqer.Name
+    Next
+    Close #5
+
+    Debug.Print "プログラム正常終了"
+
+End Sub
