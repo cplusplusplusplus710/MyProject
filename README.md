@@ -50,6 +50,7 @@ csv形式で出力される。
 Unity用Scriptが色々おさめられている。
 2DRPGを意識したもの。
 戦闘シーン用スクリプト多め。
+現在更新中止。
 
 〇WebScraping_Test
 
